@@ -1,7 +1,7 @@
 antlr4-maven-example
 ====================
 
-ANTLR4 Maven project with Hello World
+ANTLR4 example using ParseTreeProperty
 
 "mvn compile exec:java" will compile and run the main method.
 
