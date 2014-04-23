@@ -12,10 +12,10 @@ public class MyWalker extends MyParserBaseListener {
 
     @Override
     public void exitNameValuePair(@NotNull MyParser.NameValuePairContext ctx) {
-        // Use NameContext as key
-        Object name = contextMap.get(ctx.name());
-        // Use ValueContext as key
-        Object value = contextMap.get(ctx.value());
+        // Remove name, using NameContext as key
+        Object name = contextMap.removeFrom(ctx.name());
+        // Remove value, using NameContext as key
+        Object value = contextMap.removeFrom(ctx.value());
         // Nothing remains on the map now
         System.out.printf("name: %s\nvalue: %s\n", name, value);
     }
