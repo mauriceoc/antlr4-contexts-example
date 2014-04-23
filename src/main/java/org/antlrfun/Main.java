@@ -12,7 +12,10 @@ public class Main {
         // Parse two strings
         // See MyWalker class for how this works
 
+        // This should print a single string
         parseString("foo=bar");
+
+        // This should print an array object
         parseString("pop=hey,ho,yo");
     }
 
