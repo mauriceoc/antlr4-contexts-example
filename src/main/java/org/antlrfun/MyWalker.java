@@ -17,6 +17,7 @@ public class MyWalker extends MyParserBaseListener {
         // Remove value, using ValueContext as key
         Object value = contextMap.removeFrom(ctx.value());
         // Nothing remains on the map now
+        // It is important that we clear the map entirely
         System.out.printf("name: %s\nvalue: %s\n", name, value);
     }
 
