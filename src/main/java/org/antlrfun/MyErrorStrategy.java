@@ -9,52 +9,49 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
+import java.lang.*;
 import java.util.List;
 
-
+// Crush all error handling from ANTLR and route it through custom code
 public class MyErrorStrategy extends DefaultErrorStrategy {
 
-    // Change how Errors are reported here
     @Override
-    public void reportError(Parser recognizer, RecognitionException e) {
-        List<String> stack = recognizer.getRuleInvocationStack();
+    protected void reportNoViableAlternative(@NotNull Parser parser, @NotNull NoViableAltException e) {
+        handleError(parser);
+    }
+
+    @Override
+    protected void reportInputMismatch(@NotNull Parser parser, @NotNull InputMismatchException e) {
+        handleError(parser);
+    }
+
+    @Override
+    protected void reportMissingToken(@NotNull Parser parser) {
+        handleError(parser);
+    }
+
+    @Override
+    protected void reportUnwantedToken(@NotNull Parser parser) {
+        handleError(parser);
+    }
+
+    @Override
+    protected void reportFailedPredicate(@NotNull Parser parser, @NotNull FailedPredicateException e) {
+        handleError(parser);
+    }
+
+    // Change error messages here
+    private void handleError(Parser parser) {
+        List<String> stack = parser.getRuleInvocationStack();
+
         for(String s : stack) {
-            recognizer.notifyErrorListeners(e.getOffendingToken(), "Invalid: " + s, e);
+            Error error = Error.getError(s);
+            if(error != null) {
+                parser.notifyErrorListeners(error.getErrorMessage());
+            }
         }
-    }
 
-    @Override
-    protected void reportNoViableAlternative(@NotNull Parser recognizer, @NotNull NoViableAltException e) {
-        // Blank method
-        // Leave this overridden as we don't want ANTLR to report it
-    }
-
-    @Override
-    protected void reportInputMismatch(@NotNull Parser recognizer, @NotNull InputMismatchException e) {
-        // Blank method
-        // Leave this overridden as we don't want ANTLR to report it
-    }
-
-    @Override
-    protected void reportMissingToken(@NotNull Parser recognizer) {
-        // Blank method
-        // Leave this overridden as we don't want ANTLR to report it
-    }
-
-    @Override
-    protected void reportUnwantedToken(@NotNull Parser recognizer) {
-        // Blank method
-        // Leave this overridden as we don't want ANTLR to report it
-    }
-
-    @Override
-    protected void reportFailedPredicate(@NotNull Parser recognizer, @NotNull FailedPredicateException e) {
-        // Blank method
-        // Leave this overridden as we don't want ANTLR to report it
-    }
-
-    @Override
-    public void recover(Parser recognizer, RecognitionException e) {
+        // Cancel the parse after the first error
         throw new ParseCancellationException();
     }
 }

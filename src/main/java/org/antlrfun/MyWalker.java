@@ -11,7 +11,7 @@ public class MyWalker extends MyParserBaseListener {
     private ParseTreeProperty<Object> contextMap = new ParseTreeProperty<>();
 
     @Override
-    public void exitNameValuePair(@NotNull MyParser.NameValuePairContext ctx) {
+    public void exitOption(@NotNull MyParser.OptionContext ctx) {
         // Remove name, using NameContext as key
         Object name = contextMap.removeFrom(ctx.name());
         // Remove value, using ValueContext as key
@@ -28,15 +28,15 @@ public class MyWalker extends MyParserBaseListener {
     }
 
     @Override
-    public void exitSimpleValueSubRule(@NotNull MyParser.SimpleValueSubRuleContext ctx) {
-        // Add a string for this SimpleValueSubRuleContext, which extends ValueContext
+    public void exitSimpleValueLR(@NotNull MyParser.SimpleValueLRContext ctx) {
+        // Add a string for this SimpleValueLRContext, which extends ValueContext
         String string = ctx.simpleValue().ID().getText();
         contextMap.put(ctx, string);
     }
 
     @Override
-    public void exitListValueSubRule(@NotNull MyParser.ListValueSubRuleContext ctx) {
-        // Add a string for this ListValueSubRuleContext, which extends ValueContext
+    public void exitListValueLR(@NotNull MyParser.ListValueLRContext ctx) {
+        // Add a string for this ListValueLRContext, which extends ValueContext
         List<String> stringList = new ArrayList<>(ctx.list().simpleValue().size());
         for(MyParser.SimpleValueContext simpleValueContext : ctx.list().simpleValue()) {
             stringList.add(simpleValueContext.ID().getText());

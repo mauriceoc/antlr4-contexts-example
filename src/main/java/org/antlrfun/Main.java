@@ -7,21 +7,28 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class Main {
 
+    // Run this main method and watch System.out
     public static void main(String [] args) throws Exception {
+        // First examine parseString method below and understand the steps
+
         // Parse two strings
         // See MyWalker class for how this works
         System.out.println("=== Contexts Example ===");
         parseString("cmd foo=pop");
         parseString("cmd foo=hey,ho,yo");
 
-        // Parse stuff with errors
+        // Parse invalid input
+        // See MyErrorStrategy and MyErrorListener for this
         System.out.println("======= Error #1 =======");
-        parseString("cmd #");
+        parseString("#");
         System.out.println("======= Error #2 =======");
-        parseString("cmd foo=");
+        parseString("cmd #");
         System.out.println("======= Error #3 =======");
+        parseString("cmd foo=");
+        System.out.println("======= Error #4 =======");
         parseString("cmd =pop");
-
+        System.out.println("======= Error #5 =======");
+        parseString("cmd #=pop");
     }
 
     public static void parseString(String s) {
@@ -37,7 +44,7 @@ public class Main {
         // Remove the default error listener, which outputs to stderr
         parser.removeErrorListeners();
 
-        // Add a custom error strategy
+        // Setup custom error handling
         parser.setErrorHandler(new MyErrorStrategy());
         parser.addErrorListener(new MyErrorListener());
 
