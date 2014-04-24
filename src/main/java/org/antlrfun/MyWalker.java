@@ -30,17 +30,18 @@ public class MyWalker extends MyParserBaseListener {
     @Override
     public void exitSimpleValueSubRule(@NotNull MyParser.SimpleValueSubRuleContext ctx) {
         // Add a string for this SimpleValueSubRuleContext, which extends ValueContext
-        contextMap.put(ctx, ctx.simpleValue().ID().getText());
+        String string = ctx.simpleValue().ID().getText();
+        contextMap.put(ctx, string);
     }
 
     @Override
     public void exitListValueSubRule(@NotNull MyParser.ListValueSubRuleContext ctx) {
         // Add a string for this ListValueSubRuleContext, which extends ValueContext
-        List<String> stringsList = new ArrayList<>(ctx.list().simpleValue().size());
+        List<String> stringList = new ArrayList<>(ctx.list().simpleValue().size());
         for(MyParser.SimpleValueContext simpleValueContext : ctx.list().simpleValue()) {
-            stringsList.add(simpleValueContext.ID().getText());
+            stringList.add(simpleValueContext.ID().getText());
         }
         // Add an array of strings for this context
-        contextMap.put(ctx, stringsList);
+        contextMap.put(ctx, stringList);
     }
 }
