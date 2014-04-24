@@ -17,12 +17,12 @@ public class MyErrorStrategy extends DefaultErrorStrategy {
 
     @Override
     protected void reportNoViableAlternative(@NotNull Parser parser, @NotNull NoViableAltException e) {
-        handleError(parser);
+        handleError(parser, e);
     }
 
     @Override
     protected void reportInputMismatch(@NotNull Parser parser, @NotNull InputMismatchException e) {
-        handleError(parser);
+        handleError(parser, e);
     }
 
     @Override
@@ -37,12 +37,13 @@ public class MyErrorStrategy extends DefaultErrorStrategy {
 
     @Override
     protected void reportFailedPredicate(@NotNull Parser parser, @NotNull FailedPredicateException e) {
-        handleError(parser);
+        handleError(parser, e);
     }
 
     private void handleError(Parser parser) {
         handleError(parser, null);
     }
+
     // Change error messages here
     private void handleError(Parser parser, RecognitionException e) {
 
