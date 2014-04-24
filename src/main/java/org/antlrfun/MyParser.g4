@@ -3,14 +3,14 @@ parser grammar MyParser;
 options { tokenVocab=MyLexer; }
 
 command :
-    cmdName nameValuePair
+    cmdName option
 ;
 
 cmdName :
     CMD
 ;
 
-nameValuePair :
+option :
     name EQ value
 ;
 
@@ -19,9 +19,9 @@ name :
 ;
 
 value :
-    simpleValue  # simpleValueSubRule
+    simpleValue  # simpleValueLR
     |
-    list # listValueSubRule
+    list # listValueLR
 ;
 
 simpleValue :

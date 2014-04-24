@@ -21,7 +21,8 @@ public class Main {
         parseString("cmd foo=");
         System.out.println("======= Error #3 =======");
         parseString("cmd =pop");
-
+        System.out.println("======= Error #4 =======");
+        parseString("#");
     }
 
     public static void parseString(String s) {
