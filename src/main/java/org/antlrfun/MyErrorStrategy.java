@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.FailedPredicateException;
 import org.antlr.v4.runtime.InputMismatchException;
 import org.antlr.v4.runtime.NoViableAltException;
 import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
@@ -39,14 +40,22 @@ public class MyErrorStrategy extends DefaultErrorStrategy {
         handleError(parser);
     }
 
-    // Change error messages here
     private void handleError(Parser parser) {
+        handleError(parser, null);
+    }
+    // Change error messages here
+    private void handleError(Parser parser, RecognitionException e) {
+
         List<String> stack = parser.getRuleInvocationStack();
 
         for(String s : stack) {
             Error error = Error.getError(s);
             if(error != null) {
-                parser.notifyErrorListeners(error.getErrorMessage());
+                if(e == null) {
+                    parser.notifyErrorListeners(error.getErrorMessage());
+                } else {
+                    parser.notifyErrorListeners(e.getOffendingToken(), error.getErrorMessage(), e);
+                }
             }
         }
 
