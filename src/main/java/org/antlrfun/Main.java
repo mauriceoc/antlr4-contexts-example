@@ -28,13 +28,12 @@ public class Main {
         ANTLRInputStream antlrInputStream = new ANTLRInputStream(s);
 
         MyLexer lexer = new MyLexer(antlrInputStream);
-
         // Remove the default error listener, which outputs to stderr
         lexer.removeErrorListeners();
 
-        CommonTokenStream tokens = new CommonTokenStream( lexer );
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        MyParser parser = new MyParser( tokens );
+        MyParser parser = new MyParser(tokens);
         // Remove the default error listener, which outputs to stderr
         parser.removeErrorListeners();
 
