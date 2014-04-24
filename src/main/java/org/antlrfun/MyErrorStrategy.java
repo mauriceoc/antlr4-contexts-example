@@ -45,6 +45,7 @@ public class MyErrorStrategy extends DefaultErrorStrategy {
     }
 
     // Change error messages here
+    // We are generating an error for each violated rule on the stack which has an associated error message
     private void handleError(Parser parser, RecognitionException e) {
 
         List<String> stack = parser.getRuleInvocationStack();

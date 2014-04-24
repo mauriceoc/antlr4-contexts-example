@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
+// Use this class to listen to the Parser Errors
 public class MyErrorListener extends BaseErrorListener {
 
     @Override
