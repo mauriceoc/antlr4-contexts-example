@@ -35,12 +35,12 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream( lexer );
 
         MyParser parser = new MyParser( tokens );
+        // Remove the default error listener, which outputs to stderr
+        parser.removeErrorListeners();
 
         // Add a custom error strategy
         parser.setErrorHandler(new MyErrorStrategy());
-
-        // Remove the default error listener, which outputs to stderr
-        parser.removeErrorListeners();
+        parser.addErrorListener(new MyErrorListener());
 
         ParseTree tree = null;
         try {
