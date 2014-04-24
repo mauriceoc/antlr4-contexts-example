@@ -29,22 +29,25 @@ public class Main {
 
         MyLexer lexer = new MyLexer(antlrInputStream);
 
-        lexer.removeErrorListeners(); // remove the default error listener
+        // Remove the default error listener, which outputs to stderr
+        lexer.removeErrorListeners();
 
         CommonTokenStream tokens = new CommonTokenStream( lexer );
 
         MyParser parser = new MyParser( tokens );
+
+        // Add a custom error strategy
         parser.setErrorHandler(new MyErrorStrategy());
 
-        parser.removeErrorListeners(); // remove the default error listener
+        // Remove the default error listener, which outputs to stderr
+        parser.removeErrorListeners();
 
         ParseTree tree = null;
         try {
             tree = parser.command();
         } catch (ParseCancellationException e) {
-
+            // Doing nothing with this exception
         }
-
         if(tree != null) {
             ParseTreeWalker walker = new ParseTreeWalker();
             MyWalker myWalker = new MyWalker();
