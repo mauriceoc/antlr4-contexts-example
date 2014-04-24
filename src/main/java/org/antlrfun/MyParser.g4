@@ -2,6 +2,14 @@ parser grammar MyParser;
 
 options { tokenVocab=MyLexer; }
 
+command :
+    cmdName nameValuePair
+;
+
+cmdName :
+    CMD
+;
+
 nameValuePair :
     name EQ value
 ;
