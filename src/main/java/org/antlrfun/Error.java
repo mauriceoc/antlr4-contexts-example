@@ -5,7 +5,9 @@ import java.util.HashMap;
 public enum Error {
 
     INVALID_COMMAND("cmdName", "Invalid command specified"),
-    INVALID_OPTION("option", "Invalid option specified");
+    INVALID_OPTION("option", "Invalid option specified"),
+    INVALID_VALUE("value", "Invalid value specified"),
+    INVALID_NAME("name", "Invalid name specified");
 
     private String rule;
     private String errorMessage;

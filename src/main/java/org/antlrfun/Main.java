@@ -24,11 +24,15 @@ public class Main {
         System.out.println("======= Error #2 =======");
         parseString("cmd #");
         System.out.println("======= Error #3 =======");
-        parseString("cmd foo=");
+        parseString("cmd foo=#");
         System.out.println("======= Error #4 =======");
-        parseString("cmd =pop");
+        parseString("cmd foo=");
         System.out.println("======= Error #5 =======");
+        parseString("cmd =pop");
+        System.out.println("======= Error #6 =======");
         parseString("cmd #=pop");
+        System.out.println("======= Error #7 =======");
+        parseString("# foo=pop");
     }
 
     public static void parseString(String s) {
@@ -60,4 +64,5 @@ public class Main {
             walker.walk(myWalker, tree);
         }
     }
+
 }

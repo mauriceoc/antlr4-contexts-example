@@ -13,6 +13,8 @@ import java.lang.*;
 import java.util.List;
 
 // Crush all error handling from ANTLR and route it through custom code
+// This is overriding the default error strategy. There is no printing of errors here
+// we decide what to DO with the errors in MyErrorListener
 public class MyErrorStrategy extends DefaultErrorStrategy {
 
     @Override
@@ -62,7 +64,7 @@ public class MyErrorStrategy extends DefaultErrorStrategy {
         }
 
         // Cancel the parse after the first error
-        throw new ParseCancellationException();
+        throw new ParseCancellationException(e);
     }
 }
 
