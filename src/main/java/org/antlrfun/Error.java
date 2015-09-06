@@ -11,7 +11,6 @@ public enum Error {
 
     private String rule;
     private String errorMessage;
-    private static HashMap<String, Error> errorMap;
 
     private Error(String rule, String errorMessage) {
         this.rule = rule;
@@ -19,17 +18,13 @@ public enum Error {
     }
 
     public static Error getError(String rule) {
-        if(errorMap == null) {
-            initErrorMap();
-        }
-        return errorMap.get(rule);
-    }
-
-    private static void initErrorMap() {
-        errorMap = new HashMap<>();
+        Error errorToReturn = null;
         for(Error error : values()) {
-            errorMap.put(error.rule, error);
+            if(error.rule.equals(rule)) {
+                errorToReturn = error;       
+            }
         }
+        return errorToReturn;
     }
 
     public String getErrorMessage() {
